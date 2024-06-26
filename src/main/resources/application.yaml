@@ -1,0 +1,36 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /
+
+spring:
+  application:
+    name : booking
+  datasource:
+    url: jdbc:postgresql://localhost:5434/booking
+    username: user
+    password: password
+  flyway:
+    enabled: true
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: health
+  health:
+    ratelimiters:
+      enabled: true
+resilience4j:
+  ratelimiter:
+    instances:
+      booking-service:
+        limit-for-period: 100
+        limit-refresh-period: 1s
+        timeout-duration: 2s
+        register-health-indicator: true
+
+
+    
